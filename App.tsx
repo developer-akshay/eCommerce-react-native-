@@ -23,7 +23,8 @@ const App = () => {
         <Stack.Screen 
             name="HomeScreen" 
             component={HomeScreen} 
-            options={{title: "Comment at post"}} 
+            options={{headerShown:false}}
+            // options={{title: "Comment at post"}} 
             />
       </Stack.Navigator>
     </NavigationContainer>
