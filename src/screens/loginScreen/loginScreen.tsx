@@ -8,13 +8,17 @@ import { theme } from '../../themes/theme'
 import Button from '../../component/button'
 import { emailValidator } from '../../helpers/emailValidator'
 import { passwordValidator } from '../../helpers/passwordValidator'
+import { useNavigation } from '@react-navigation/native';
+import HomeScreen from '../homeScreen/homeScreen'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-const loginScreen = () => {
+const LoginScreen = ({navigation}) => {
     
     const [email, setEmail] = useState({ value: '', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
 
+    // const navigation = useNavigation();
     const onLoginPressed = () => {
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
@@ -27,13 +31,14 @@ const loginScreen = () => {
         //   index: 0,
         //   routes: [{ name: 'Dashboard' }],
         // })
+        // navigation.navigate('HomeScreen')}
       }
 
   return (
     <Background>
         <Logo />
         <Header>Welcome back.</Header>
-        <Text>loginScreen</Text>
+        <Text>LoginScreen</Text>
 {/* creadential input */}
         <TextInput
               label="Email"
@@ -73,7 +78,7 @@ const loginScreen = () => {
 <View style={styles.row}>
         <Text>Don’t have an account? </Text>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>navigation.navigate('HomeScreen')}
         // onPress={() => navigation.replace('RegisterScreen')}
         >
           <Text style={styles.link}>Sign up</Text>
@@ -84,7 +89,7 @@ const loginScreen = () => {
   )
 }
 
-export default loginScreen
+export default LoginScreen
 
 const styles = StyleSheet.create({
     forgotPassword: {
