@@ -28,6 +28,7 @@ const LoginScreen = ({navigation}) => {
           return
         }
         console.log('email : ',email, '  password : ',password)
+        navigation.navigate('HomeScreen')
         //   index: 0,
         //   routes: [{ name: 'Dashboard' }],
         // })
@@ -64,7 +65,7 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.forgotPassword}>
             <TouchableOpacity
             //   onPress={() => navigation.navigate('ResetPasswordScreen')}
-            onPress={()=>{}}
+            // onPress={()=>navigation.navigate('HomeScreen')}
             >
             <Text style={styles.forgot}>Forgot your password?</Text>
             </TouchableOpacity>
@@ -78,7 +79,7 @@ const LoginScreen = ({navigation}) => {
 <View style={styles.row}>
         <Text>Don’t have an account? </Text>
         <TouchableOpacity 
-        onPress={()=>navigation.navigate('HomeScreen')}
+        // onPress={()=>navigation.navigate('HomeScreen')}
         // onPress={() => navigation.replace('RegisterScreen')}
         >
           <Text style={styles.link}>Sign up</Text>
