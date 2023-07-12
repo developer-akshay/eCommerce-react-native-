@@ -8,17 +8,22 @@ import { theme } from '../../themes/theme'
 import Button from '../../component/button'
 import { emailValidator } from '../../helpers/emailValidator'
 import { passwordValidator } from '../../helpers/passwordValidator'
+// import { FIREBASE_AUTH } from '../../config/firebase'
+import auth from '@react-native-firebase/auth';
+import UserStack from '../../navigation/userStack'
 import { useNavigation } from '@react-navigation/native';
-import HomeScreen from '../homeScreen/homeScreen'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from '../homeScreen'
 
 const LoginScreen = ({navigation}) => {
     
     const [email, setEmail] = useState({ value: '', error: '' })
     const [password, setPassword] = useState({ value: '', error: '' })
+    const [loading,setLoading] = useState(false);
+// const auth= FIREBASE.auth(); below is the same thing we are importing it from OUR CONFIG FILE
+    // const auth = FIREBASE_AUTH;
 
-    // const navigation = useNavigation();
     const onLoginPressed = () => {
         const emailError = emailValidator(email.value)
         const passwordError = passwordValidator(password.value)
@@ -27,12 +32,27 @@ const LoginScreen = ({navigation}) => {
           setPassword({ ...password, error: passwordError })
           return
         }
-        console.log('email : ',email, '  password : ',password)
-        navigation.navigate('HomeScreen')
-        //   index: 0,
-        //   routes: [{ name: 'Dashboard' }],
-        // })
-        // navigation.navigate('HomeScreen')}
+
+        auth()
+          .createUserWithEmailAndPassword(email.value, password.value)
+          .then(() => {
+            console.log('User account created & signed in!');
+            console.log('email : ',email, '  password : ',password)
+                navigation.navigate('HomeScreen')
+          })
+          .catch(error => {
+            if (error.code === 'auth/email-already-in-use') {
+              console.log('That email address is already in use!');
+              navigation.navigate('HomeScreen')
+            }
+
+            if (error.code === 'auth/invalid-email') {
+              console.log('That email address is invalid!');
+            }
+
+            console.error(error);
+          });
+        
       }
 
   return (
@@ -51,7 +71,8 @@ const LoginScreen = ({navigation}) => {
               autoCapitalize="none"
               autoCompleteType="email"
               textContentType="emailAddress"
-              keyboardType="email-address" description={undefined}      />
+              keyboardType="email-address" 
+              description={undefined}      />
         <TextInput 
               label="Password"
               returnKeyType="done"

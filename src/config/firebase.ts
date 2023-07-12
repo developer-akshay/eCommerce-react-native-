@@ -1,6 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { getApps, initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from 'firebase/firestore'
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,6 +19,16 @@ const firebaseConfig = {
   measurementId: "G-B5CMKE0FYQ"
 };
 
+// FIREBASE_API_KEY=AIzaSyDi0MwwV7r-ZNTdEnfdxvNtWias4zPhpPg
+// FIREBASE_AUTH_DOMAIN=ecommerce-react-native-16962.firebaseapp.com
+// FIREBASE_PROJECT_ID=ecommerce-react-native-16962
+// FIREBASE_STORAGE_BUCKETt=ecommerce-react-native-16962.appspot.com
+// FIREBASE_MESSAGING_SENDER_ID=547715920025
+// FIREBASE_APP_ID=1:547715920025:web:64e4592bc4455d34f8c808
+// FIREBASE_MEASUREMENT_ID=G-B5CMKE0FYQ
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const FIREBASE_APP = initializeApp(firebaseConfig);
+export const FIREBASE_AUTH = getAuth(FIREBASE_APP)
+export const FIREBASE_ANALYTICS = getAnalytics(FIREBASE_APP);
+export const FIRESTORE_DB = getFirestore(FIREBASE_APP);
